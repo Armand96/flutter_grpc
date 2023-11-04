@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package supplier;
+
+message Supplier {
+    int32 id = 1;
+    string supplierName = 2;
+}
+
+message Suppliers {
+    repeated Supplier suppliers = 1;
+}
+
+message CreateSupplierDTO {
+    string supplierName = 1;
+}
+
+message UpdateSupplierDTO {
+    int32 id = 1;
+    string supplierName = 2;
+}
+
+message FindOneSupplierDTO {
+    int32 id = 1;
+}
+
+message PaginationDTO {
+    int32 page = 1;
+    int32 skip = 2;
+}
+
+message Empty {}
+
+service SupplierService {
+    rpc FindAllSupplier (Empty) returns (Suppliers) {}
+    rpc FindOneSupplier (FindOneSupplierDTO) returns (Supplier) {}
+    rpc CreateSupplier (CreateSupplierDTO) returns (Supplier) {}
+    rpc UpdateSupplier (UpdateSupplierDTO) returns (Supplier) {}
+    rpc RemoveSupplier (FindOneSupplierDTO) returns (Supplier) {}
+    rpc QuerySupplier (stream PaginationDTO) returns (stream Suppliers) {}
+}
